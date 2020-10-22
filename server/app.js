@@ -7,7 +7,7 @@ const express = require('express');
 const compression = require('compression');
 // favicon library to handle favicon requests
 const favicon = require('serve-favicon');
- // Library to parse cookies from the requests
+// Library to parse cookies from the requests
 const cookieParser = require('cookie-parser');
 // library to handle POST requests any information sent in an HTTP body
 const bodyParser = require('body-parser');
@@ -25,14 +25,14 @@ const router = require('./router.js');
 // your Config Vars in the Heroku Dashboard > Settings > Config Vars section.
 // otherwise fallback to localhost.
 // The string after mongodb://localhost is the database name. It can be anything you want.
-const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/simpleMVCExample';
+const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/simpleModelsHW';
 
 // A number of options for Mongoose to turn on newer features supported by
 // newer version of MongoDB.
 const mongooseOptions = {
-  useNewUrlParser: true, 
-  useUnifiedTopology: true,
-  useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
 }
 
 // call mongoose's connect function and pass in the url and options object.
@@ -40,10 +40,10 @@ const mongooseOptions = {
 // Once connected, the mongoose package will stay connected for every file
 // that requires it in this project
 mongoose.connect(dbURL, mongooseOptions, (err) => {
-  if (err) {
-    console.log('Could not connect to database');
-    throw err;
-  }
+    if (err) {
+        console.log('Could not connect to database');
+        throw err;
+    }
 });
 
 
@@ -77,7 +77,7 @@ app.use(bodyParser.json());
 // You can use other view engines besides handlebars
 // We will also set the default layout to nothing
 app.engine('handlebars', expressHandlebars({
-  defaultLayout: '',
+    defaultLayout: '',
 }));
 app.set('view engine', 'handlebars');
 
@@ -97,9 +97,8 @@ router(app);
 // Tell the app to listen on the specified port
 app.listen(port, (err) => {
     // if the app fails, throw the err
-  if (err) {
-    throw err;
-  }
-  console.log(`Listening on port ${port}`);
+    if (err) {
+        throw err;
+    }
+    console.log(`Listening on port ${port}`);
 });
-
