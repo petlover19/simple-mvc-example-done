@@ -8,18 +8,18 @@ const DogSchema = new mongoose.Schema({
         required: true,
         trim: true,
         unique: true,
+        default: "Lupo"
     },
-
     breed: {
         type: String,
         required: true,
+        default: "Labradoodle"
     },
-
     age: {
         type: Number,
         required: true,
+        default: 2
     },
-
     createdDate: {
         type: Date,
         default: Date.now,
