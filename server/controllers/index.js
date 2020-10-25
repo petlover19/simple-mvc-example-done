@@ -252,7 +252,7 @@ const notFound = (req, res) => {
 const Dog = models.Dog.DogModel;
 
 const defaultDogData = {
-    name: 'Chris',
+    dogName: 'Chris',
     breed: 'Corgi',
     age: 0,
 };
@@ -264,7 +264,7 @@ const readAllDogs = (req, res, callback) => {
 };
 
 const readDog = (req, res) => {
-    const name1 = req.query.name;
+    const name1 = req.query.dogName;
 
     // function to call when we get objects back from the database.
     // With Mongoose's find functions, you will get an err and doc(s) back
@@ -281,26 +281,24 @@ const readDog = (req, res) => {
 };
 
 const getDog = (req, res) => {
-    res.json({ name: lastAddedDog.name });
+    res.json({ dogName: lastAddedDog.dogName });
 };
 
 const setDogName = (req, res) => {
     // check if the required fields exist
     // normally you would also perform validation
     // to know if the data they sent you was real
-    if (!req.body.name || !req.body.breed || !req.body.age) {
-        console.log(`name: ${req.body.name}\nbreed: ${req.body.breed}\nage: ${req.body.age}`)
+    console.log(`name: ${req.body.dogNameame}\nbreed: ${req.body.breed}\nage: ${req.body.age}`);
+    if (!req.body.dogName || !req.body.breed || !req.body.age) {
         return res.status(400).json({ error: 'pet name,breed and age are all required' });
     }
 
     // if required fields are good, then set name
-    const name = `
-                    $ { req.body.name }
-                    `;
+    const dogName = ` ${ req.body.dogName }`;
 
     // dummy JSON to insert into database
     const dogData = {
-        name,
+        dogName,
         breed: req.body.breed,
         age: req.body.age,
     };
@@ -317,7 +315,7 @@ const setDogName = (req, res) => {
         // This way we can update it dynamically
         lastAddedDog = newDog;
         // return success
-        res.json({ name: lastAddedDog.name, breed: lastAddedDog.breed, age: lastAddedDog.age });
+        res.json({ dogName: lastAddedDog.dogName, breed: lastAddedDog.breed, age: lastAddedDog.age });
     });
 
     // if error, return it
@@ -333,18 +331,18 @@ const ageingDog = (ageDog, res) => {
     const savePromise = oldDog.save();
 
     // send back the name as a success for now
-    savePromise.then(() => res.json({ name: oldDog.name, breed: oldDog.breed, age: oldDog.age }));
+    savePromise.then(() => res.json({ dogName: oldDog.dogName, breed: oldDog.breed, age: oldDog.age }));
 
     // if save error, just return an error for now
     savePromise.catch((err) => res.status(500).json({ err }));
 };
 
 const searchDogName = (req, res) => {
-    if (!req.query.name) {
+    if (!req.query.dogName) {
         return res.status(400).json({ error: 'Name is required to perform a search' });
     }
 
-    return Dog.findByDog(req.query.name, (err, doc) => {
+    return Dog.findByDog(req.query.dogName, (err, doc) => {
         // errs, handle them
         if (err) {
             return res.status(500).json({ err }); // if error, return it
@@ -359,7 +357,7 @@ const searchDogName = (req, res) => {
         // if a match, send the match back
         // and age the dog a year
         ageingDog(doc, res);
-        return res.json({ name: doc.name, breed: doc.breed, age: doc.age });
+        return res.json({ dogName: doc.dogName, breed: doc.breed, age: doc.age });
     });
 };
 

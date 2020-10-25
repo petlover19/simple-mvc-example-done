@@ -3,36 +3,36 @@ const mongoose = require('mongoose');
 let DogModel = {};
 
 const DogSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true,
-  },
+    dogName: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: true,
+    },
 
-  breed: {
-    type: String,
-    required: true,
-  },
+    breed: {
+        type: String,
+        required: true,
+    },
 
-  age: {
-    type: Number,
-    required: true,
-  },
+    age: {
+        type: Number,
+        required: true,
+    },
 
-  createdDate: {
-    type: Date,
-    default: Date.now,
-  },
+    createdDate: {
+        type: Date,
+        default: Date.now,
+    },
 
 });
 
 DogSchema.statics.findByDog = (name, callback) => {
-  const search = {
-    name,
-  };
+    const search = {
+        name,
+    };
 
-  return DogModel.findOne(search, callback);
+    return DogModel.findOne(search, callback);
 };
 
 DogModel = mongoose.model('Dog', DogSchema);
