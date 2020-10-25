@@ -252,8 +252,8 @@ const notFound = (req, res) => {
 const Dog = models.Dog.DogModel;
 
 const defaultDogData = {
-    name: 'unknown',
-    breed: 'unknown',
+    name: 'Chris',
+    breed: 'Corgi',
     age: 0,
 };
 
