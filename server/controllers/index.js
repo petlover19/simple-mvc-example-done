@@ -289,11 +289,14 @@ const setDogName = (req, res) => {
     // normally you would also perform validation
     // to know if the data they sent you was real
     if (!req.body.name || !req.body.breed || !req.body.age) {
+        console.log(`name: ${req.body.name}\nbreed: ${req.body.breed}\nage: ${req.body.age}`)
         return res.status(400).json({ error: 'pet name,breed and age are all required' });
     }
 
     // if required fields are good, then set name
-    const name = `${req.body.name}`;
+    const name = `
+                    $ { req.body.name }
+                    `;
 
     // dummy JSON to insert into database
     const dogData = {
